@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect Four</title>
+    <link rel="stylesheet" href="../styles/connectFour.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Connect Four</h1>
+
+        <!-- Player Profiles -->
+        <div class="players">
+            <div class="player">
+                <img id="fubuki" src="../materials/image/connectFour/fubuki-profile.jpg" alt="Fubuki Chan">
+                <h2>Fubuki Chan - 🔴</h2>
+                <p>Score: <span id="alya-score">0</span></p>
+            </div>
+            <div class="player">
+                <img id="kitagawa" src="../materials/image/connectFour/Kitagawa-profile.jpg" alt="Kitagawa Chan">
+                <h2>Kitagawa Chan- 🟡</h2>
+                <p>Score: <span id="kuze-score">0</span></p>
+            </div>
+        </div>
+
+        <!-- Connect Four Board -->
+        <div class="board">
+            <!-- 7x6 grid -->
+            <div class="row">
+                <div class="cell" onclick="dropPiece(0)"></div>
+                <div class="cell" onclick="dropPiece(1)"></div>
+                <div class="cell" onclick="dropPiece(2)"></div>
+                <div class="cell" onclick="dropPiece(3)"></div>
+                <div class="cell" onclick="dropPiece(4)"></div>
+                <div class="cell" onclick="dropPiece(5)"></div>
+                <div class="cell" onclick="dropPiece(6)"></div>
+            </div>
+        </div>
+
+        <!-- Message -->
+        <p class="message" id="message">Alya's Turn</p>
+
+        <!-- Buttons -->
+        <div class="buttons">
+            <button class="reset-btn" onclick="resetGame()">Reset Score</button>
+            <button class="new-game-btn" onclick="newGame()">New Game</button>
+        </div>
+    </div>
+
+    <script src="../scripts/connectFour.js"></script>
+</body>
+</html>
