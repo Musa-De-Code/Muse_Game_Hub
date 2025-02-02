@@ -1,0 +1,18 @@
+(git config --global user.name Musa
+git config --global user.email musaddikulislam007@gmail.com)_______--------to update new web--------_____________
+----------------------------------------------------------------
+package.json
+
+{
+    "name": "checkersgame",
+    "version": "1.0.0",
+    "description": "",
+    "main": "script.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "marius niemet",
+    "license": "ISC"
+  }
+
+  --------------------------------------------------------------
