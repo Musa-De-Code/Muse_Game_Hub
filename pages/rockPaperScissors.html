@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="../styles/rockPaperScissors.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Rock Paper Scissors</h1>
+        
+        <!-- Player Profiles -->
+        <div class="players">
+            <div class="player">
+                <img src="../materials/image/rockPaperScissors/profile.jpg" alt="Fubuki">
+                <h2>You</h2>
+                <p id="fubuki-choice">Waiting...</p>
+            </div>
+            <div class="player">
+                <img src="../materials/image/rockPaperScissors/tatsumaki-profile.jpg" alt="Tatsumaki">
+                <h2>Tatsumaki</h2>
+                <p id="tatsumaki-choice">Waiting...</p>
+            </div>
+        </div>
+
+        <!-- Choices -->
+        <div class="choices">
+            <img src="../materials/image/rockPaperScissors/image1.png" alt="Rock" onclick="playGame('rock')">
+            <img src="../materials/image/rockPaperScissors/image2.png" alt="Paper" onclick="playGame('paper')">
+            <img src="../materials/image/rockPaperScissors/image3.png" alt="Scissors" onclick="playGame('scissors')">
+        </div>
+
+        <!-- Scoreboard -->
+        <div class="scoreboard">
+            <p>You: <span id="fubuki-score">0</span> _______ Tatsumaki: <span id="tatsumaki-score">0</span></p>
+        </div>
+
+        <!-- Reset Button -->
+        <button class="reset-btn" onclick="resetGame()">Reset Score</button>
+    </div>
+
+    <script src="../scripts/rockPaperScissors.js"></script>
+</body>
+</html>
