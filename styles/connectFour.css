@@ -16,6 +16,17 @@ body {
   height: 100vh;
   text-align: center;
   flex-direction: column;
+  opacity: 0;
+  animation: fadeIn 1s ease-in forwards;
+}
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
 }
 
 /* Title Styling */

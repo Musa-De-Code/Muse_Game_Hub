@@ -2,12 +2,20 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: poppins, sans-serif;
 }
 
-body {
-    font-family: sans-serif;
-    color: white;
+body {margin-top: 5%;
     background-color: black;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    flex-direction: column;
+
+    /* used  to show the loading fading effect */
     opacity: 0;
     animation: fadeIn 1s ease-in forwards;
 }
@@ -26,12 +34,15 @@ a {
     text-decoration: none;
 }
 
-.header {min-width: 500px;
-    font-size: 1rem;
-    font-weight: bold;
-    text-align: center;
-    margin-top: 5%;
-}
+.header {
+    font-size: 3vb;
+    text-transform: uppercase;
+    align-items: baseline;
+    letter-spacing: 3px;
+    margin: 5%;
+    padding: 1%;
+    color: #0ff; /* Neon Cyan */
+  }
 .main{
     min-width: 500px;
 }

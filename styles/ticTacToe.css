@@ -2,12 +2,15 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
 body {
-    font-family: sans-serif;
-    text-align: center;
     background-color: black;
     color: white;
+    justify-content: center;
+    align-items: center;
+    height: 100vb;
+    text-align: center;
     opacity: 0;
     animation: fadeIn 1s ease-in forwards;
 }
