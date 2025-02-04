@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Note App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="container">
+        <!-- Left Sidebar -->
+<!-- HTML Changes -->
+<div class="sidebar">
+    <button id="addNote">➕ Add Note</button>
+    
+    <!-- Add this new section -->
+    <hr class="sidebar-divider">
+    <div class="note-actions">
+        <button id="archiveNote">📦 Archive</button>
+        <button id="lockNote">🔒 Lock</button>
+    </div>
+</div>
+        <div class="noteBook">
+            <!-- Middle Section: Note Previews -->
+            <!-- HTML -->
+            <div class="searchBox">
+                <input type="text" class="searchBar" placeholder="Search...">
+            </div>  
+
+            <div class="notes-preview" id="notesPreview">
+                <!-- Notes will be added here dynamically -->
+            </div>
+        </div>    
+        <!-- Right Section: Full Note Display & Editing -->
+        <div class="note-viewer">
+            <input type="text" id="noteTitle" placeholder="Note Title">
+            <textarea id="noteContent" placeholder="Write your note here..."></textarea>
+            
+            <!-- Bottom Menu -->
+            <div class="bottom-menu">
+                <button id="saveNote">💾 Save</button>
+                <button id="deleteNote">🗑️ Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
+
