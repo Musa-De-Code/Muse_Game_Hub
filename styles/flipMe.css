@@ -1,0 +1,109 @@
+/* General Styling */
+body {
+    background-color: #121212;
+    color: white;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+    animation: fadeIn 1s ease-in forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Game Container */
+.game-container {
+    max-width: 600px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background: #1e1e1e;
+    border-radius: 20px;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+}
+
+/* Coin Styling */
+#coin {
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, #FFD700, #B8860B);
+    border-radius: 50%;
+    border: 3px solid black;
+    margin: 2rem auto;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    transition: transform 1s ease-out, box-shadow 0.5s;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+}
+
+/* Flipping Effect */
+#coin.flipping {
+    transform: rotateY(1800deg);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 1);
+}
+
+/* Score Section */
+.scores {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 1rem 0;
+    font-size: 1.2rem;
+}
+
+/* Button Styling */
+button {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    background: #953214;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background: #ef5729;
+    transform: scale(1.1);
+}
+
+/* History Section */
+#history {
+    margin-top: 2rem;
+    padding: 1rem;
+    background: #292929;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+#historyList {
+    list-style: none;
+    padding: 0;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+#historyList li {
+    padding: 0.5rem;
+    margin: 0.3rem 0;
+    background: #404040;
+    border-radius: 5px;
+    color: white;
+    transition: background 0.3s;
+}
+
+#historyList li:hover {
+    background: #555;
+}
