@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Flirty Pong Game</title>
+  <style>
+    body {
+      background-color: #222;
+      color: #eee;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 20px;
+    }
+    #gameCanvas {
+      background: #444;
+      display: block;
+      margin: 0 auto;
+      border: 2px solid #eee;
+    }
+    .btn {
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      opacity: 0.8;
+    }
+    #scoreboard {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Flirty Pong Game</h1>
+  <canvas id="gameCanvas" width="600" height="400"></canvas>
+  
+  <div>
+    <button id="resetScoreBtn" class="btn">Reset Max Score</button>
+    <button id="speedBtn" class="btn">10x Speed: Off</button>
+    <button id="loopBtn" class="btn">Loop Mode: Off</button>
+  </div>
+  
+  <div id="scoreboard">
+    <p>Max Score: <span id="maxScore">0</span></p>
+    <p>Learning Score: <span id="learningScore">0</span></p>
+    <p>Total Games: <span id="totalGames">0</span></p>
+    <p>Total Losses: <span id="totalLosses">0</span></p>
+    <p>Total Saves: <span id="totalSaves">0</span></p>
+  </div>
+  
+  <script>
+    // Canvas Setup
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+
+    // Ball properties
+    let ballRadius = 8;
+    let ballX = canvas.width / 2;
+    let ballY = canvas.height / canvas.height;
+    let ballDX = 2;
+
+    
+
+
+    let ballDY = -7;
+
+    // Paddle properties
+    let paddleWidth = 100;
+    let paddleHeight = 10;
+    let paddleX = (canvas.width - paddleWidth) / 2;
+    const paddleY = canvas.height - paddleHeight - 10;
+
+    // Game score trackers
+    let currentScore = 0;  // This is your round (max) score.
+    let learningScore = 0; // Cumulative, never resets.
+    let totalGames = 0;
+    let totalLosses = 0;
+    let totalSaves = 0;
+
+    // Speed & Loop Mode
+    let speedMultiplier = 1;
+    let loopMode = false;
+    let isGamePaused = false;
+
+    // DOM Elements for scores
+    const maxScoreEl = document.getElementById("maxScore");
+    const learningScoreEl = document.getElementById("learningScore");
+    const totalGamesEl = document.getElementById("totalGames");
+    const totalLossesEl = document.getElementById("totalLosses");
+    const totalSavesEl = document.getElementById("totalSaves");
+
+    // Buttons
+    const resetScoreBtn = document.getElementById("resetScoreBtn");
+    const speedBtn = document.getElementById("speedBtn");
+    const loopBtn = document.getElementById("loopBtn");
+
+    // Update scoreboard display
+    function updateScoreboard() {
+      maxScoreEl.textContent = currentScore;
+      learningScoreEl.textContent = learningScore;
+      totalGamesEl.textContent = totalGames;
+      totalLossesEl.textContent = totalLosses;
+      totalSavesEl.textContent = totalSaves;
+    }
+
+    // Reset ball position and speed
+    function resetBall() {
+      ballX = canvas.width / 2;
+      ballY = canvas.height / canvas.height;
+      // Reset direction; randomize a bit for fun
+      ballDX = (Math.random() > 0.5 ? 2 : -2) * speedMultiplier;
+      ballDY = -7 * speedMultiplier;
+    }
+
+    // Draw ball, paddle, and walls
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw walls (top, left, right)
+      ctx.fillStyle = "#888";
+      // Top wall
+      ctx.fillRect(0, 0, canvas.width, 5);
+      // Left wall
+      ctx.fillRect(0, 0, 5, canvas.height);
+      // Right wall
+      ctx.fillRect(canvas.width - 5, 0, 5, canvas.height);
+
+      // Draw ball
+      ctx.beginPath();
+      ctx.arc(ballX, ballY, ballRadius, 0, Math.PI * 2);
+      ctx.fillStyle = "#fff";
+      ctx.fill();
+      ctx.closePath();
+
+      // Draw paddle
+      ctx.fillStyle = "#0f0";
+      ctx.fillRect(paddleX, paddleY, paddleWidth, paddleHeight);
+    }
+
+    // Main game loop
+    function gameLoop() {
+      if (isGamePaused) return;
+      draw();
+      update();
+      requestAnimationFrame(gameLoop);
+    }
+
+    // Update ball position and collision logic
+    function update() {
+      // Next position
+      ballX += ballDX;
+      ballY += ballDY;
+
+      // Collision with left and right walls
+      if (ballX - ballRadius < 5) {
+        ballX = ballRadius + 5;
+        ballDX = -ballDX;
+      }
+      if (ballX + ballRadius > canvas.width - 5) {
+        ballX = canvas.width - ballRadius - 5;
+        ballDX = -ballDX;
+      }
+      // Collision with top wall
+      if (ballY - ballRadius < 5) {
+        ballY = ballRadius + 5;
+        ballDY = -ballDY;
+      }
+
+      // Paddle collision (only if ball is coming down)
+      if (ballY + ballRadius >= paddleY && ballY + ballRadius <= paddleY + paddleHeight) {
+        if (ballX >= paddleX && ballX <= paddleX + paddleWidth && ballDY > 0) {
+          ballY = paddleY - ballRadius; // reposition ball just above paddle
+          ballDY = -ballDY;
+          
+          // Increment scores for a successful save
+          currentScore++;
+          totalSaves++;
+          learningScore++;
+          updateScoreboard();
+        }
+      }
+
+      // Check for miss (ball falls below canvas)
+      if (ballY - ballRadius > canvas.height) {
+        totalGames++;
+        totalLosses++;
+        updateScoreboard();
+        
+        // Reset current score since you missed the ball, but keep your learning score intact.
+        currentScore = 0;
+        updateScoreboard();
+
+        if (loopMode) {
+          resetBall();
+        } else {
+          // Pause the game and wait for a click to restart
+          isGamePaused = true;
+          ctx.font = "24px sans-serif";
+          ctx.fillStyle = "#fff";
+          ctx.fillText("You missed, darling! Click to restart.", canvas.width / 2 - 180, canvas.height / 2);
+        }
+      }
+    }
+
+    // Restart game on canvas click if paused and loop mode is off
+    canvas.addEventListener("click", function () {
+      if (isGamePaused) {
+        isGamePaused = false;
+        resetBall();
+        requestAnimationFrame(gameLoop);
+      }
+    });
+
+    // Paddle movement via mouse
+    canvas.addEventListener("mousemove", function (e) {
+      const rect = canvas.getBoundingClientRect();
+      const mouseX = e.clientX - rect.left;
+      paddleX = mouseX - paddleWidth / 2;
+      // Boundaries
+      if (paddleX < 5) paddleX = 5;
+      if (paddleX + paddleWidth > canvas.width - 5) paddleX = canvas.width - paddleWidth - 5;
+    });
+
+    // Button event listeners
+    resetScoreBtn.addEventListener("click", function () {
+    //  currentScore = 0;
+    //  updateScoreboard();
+    });
+
+    speedBtn.addEventListener("click", function () {
+      if (speedMultiplier === 1) {
+        // Multiply current speed by 10
+        ballDX *= 10;
+        ballDY *= 10;
+        speedMultiplier = 10;
+        speedBtn.textContent = "10x Speed: On";
+      } else {
+        // Reset speed back to normal
+        ballDX /= 10;
+        ballDY /= 10;
+        speedMultiplier = 1;
+        speedBtn.textContent = "10x Speed: Off";
+      }
+    });
+
+    loopBtn.addEventListener("click", function () {
+      loopMode = !loopMode;
+      loopBtn.textContent = loopMode ? "Loop Mode: On" : "Loop Mode: Off";
+    });
+
+    // Start the game
+    updateScoreboard();
+    requestAnimationFrame(gameLoop);
+  </script>
+</body>
+<script src="ai.js"></script>
+</html>
